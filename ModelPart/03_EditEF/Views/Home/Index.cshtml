@@ -1,0 +1,54 @@
+﻿@model ModelPart.Models.RegistrationModel
+
+<h2>Registration Form Example</h2>
+
+<form role="form" method="POST">
+    <div class="form-group">
+        @*<label for="Email">Email address</label>
+          <input type="text" class="form-control" name="Email" placeholder="Enter email here">*@
+
+        @Html.LabelFor(x => x.Email)
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "Enter email here" })
+    </div>
+
+    <div class="form-group">
+        @*<label for="Password">Password</label>
+        <input type="password" class="form-control" name="Password" placeholder="Enter password here">*@
+
+        @Html.LabelFor(x => x.Password)
+        @Html.PasswordFor(x => x.Password, new { @class = "form-control", placeholder = "Enter password here" })
+    </div>
+
+    <div class="form-group">
+        @*<label for="Name">User Name</label>
+        <input type="text" class="form-control" name="Name" placeholder="Enter name here">*@
+
+        @Html.LabelFor(x => x.Name)
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Enter name here" })
+    </div>
+
+    <div class="form-group">
+        @*<label for="City">Select Your country</label>
+        <select class="form-control" id="City" name="City"><option value="Kyiv">Kyiv</option>
+        <option value="Lviv">Lviv</option>
+        <option value="Donetsk">Donetsk</option>
+        <option value="Odessa">Odessa</option>
+        </select>*@
+
+        @Html.LabelFor(x => x.City)
+        @Html.DropDownListFor(x => x.City, Model.Cities, new { @class = "form-control" })
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @* <input type="checkbox">*@
+            @Html.CheckBoxFor(x => x.Remember)
+
+            @Html.DisplayNameFor(x => x.Remember)  @* LabelFor отличается от DisplayNameFor тем что выводит тег <label> вместо чистого текста *@
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<br />
+<br />
+@Html.ActionLink("View All Users","ShowDB")

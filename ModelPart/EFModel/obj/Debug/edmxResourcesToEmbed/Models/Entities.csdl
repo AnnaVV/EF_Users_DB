@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EntitesModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="DataEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cities" EntityType="EntitesModel.City" />
+    <EntitySet Name="RegistrationInfoes" EntityType="EntitesModel.RegistrationInfo" />
+    <AssociationSet Name="FK_RegistrationInfo_ToCities" Association="EntitesModel.FK_RegistrationInfo_ToCities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="RegistrationInfo" EntitySet="RegistrationInfoes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="RegistrationInfoes" Relationship="EntitesModel.FK_RegistrationInfo_ToCities" FromRole="Cities" ToRole="RegistrationInfo" />
+  </EntityType>
+  <EntityType Name="RegistrationInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="EntitesModel.FK_RegistrationInfo_ToCities" FromRole="RegistrationInfo" ToRole="Cities" />
+  </EntityType>
+  <Association Name="FK_RegistrationInfo_ToCities">
+    <End Role="Cities" Type="EntitesModel.City" Multiplicity="1" />
+    <End Role="RegistrationInfo" Type="EntitesModel.RegistrationInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RegistrationInfo">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

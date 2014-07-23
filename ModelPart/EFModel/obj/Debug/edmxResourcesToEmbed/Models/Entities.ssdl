@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EntitesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="EntitesModelStoreContainer">
+    <EntitySet Name="Cities" EntityType="EntitesModel.Store.Cities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RegistrationInfo" EntityType="EntitesModel.Store.RegistrationInfo" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_RegistrationInfo_ToCities" Association="EntitesModel.Store.FK_RegistrationInfo_ToCities">
+      <End Role="Cities" EntitySet="Cities" />
+      <End Role="RegistrationInfo" EntitySet="RegistrationInfo" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RegistrationInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CityID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_RegistrationInfo_ToCities">
+    <End Role="Cities" Type="EntitesModel.Store.Cities" Multiplicity="1" />
+    <End Role="RegistrationInfo" Type="EntitesModel.Store.RegistrationInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cities">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RegistrationInfo">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

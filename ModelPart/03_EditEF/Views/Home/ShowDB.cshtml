@@ -1,0 +1,24 @@
+﻿@model IEnumerable<EFModel.Models.RegistrationInfo>
+
+@{
+    ViewBag.Title = "ShowDB";
+}
+
+<h2>Registered Users Info</h2>
+
+<ul>
+    @foreach (var x in Model)
+    {
+        <li> 
+            <div class="row">
+                <div class="col-md-3">@x.Email</div> 
+                <div class="col-md-3">@x.Name</div> 
+                @*<div class="col-md-3">@x.City</div>*@
+                @Html.ActionLink("Delete", "DeleteUser", new { id = x.Id })
+            </div>
+        </li>
+    }
+</ul>
+<br />
+@Html.ActionLink("Add user", "Index")
+
